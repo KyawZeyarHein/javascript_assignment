@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Detail</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            margin: 20px;
+        }
+        h3 {
+            font-size: 28px;
+        }
+        #monster-list {
+            margin-top: 5px;
+            padding: 4px;
+            font-size: 16px;
+        }
+        .label {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .row {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        hr {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Monster Detail</h3>
+
+    <div class="row">Select Monster:</div>
+    <select id="monster-list"></select>
+
+    <hr>
+
+    <div class="row"><span class="label">ID</span>    <span id="td-monster-id"></span></div>
+    <div class="row"><span class="label">Name</span>  <span id="td-monster-name"></span></div>
+    <div class="row"><span class="label">HP</span>    <span id="td-monster-hp"></span></div>
+    <div class="row"><span class="label">EXP</span>   <span id="td-monster-exp"></span></div>
+
+    <script>
+        const monsters = [
+            { id: 1, name: "Fire Dragon", hp: 150, exp: 85 },
+            { id: 2, name: "Ice Wolf", hp: 75, exp: 45 },
+            { id: 3, name: "Shadow Goblin", hp: 40, exp: 25 },
+            { id: 4, name: "Lightning Phoenix", hp: 200, exp: 120 },
+            { id: 5, name: "Earth Golem", hp: 180, exp: 95 },
+            { id: 6, name: "Poison Spider", hp: 60, exp: 35 },
+            { id: 7, name: "Wind Eagle", hp: 90, exp: 55 },
+            { id: 8, name: "Dark Skeleton", hp: 65, exp: 40 },
+            { id: 9, name: "Crystal Unicorn", hp: 120, exp: 75 },
+            { id: 10, name: "Lava Titan", hp: 250, exp: 150 }
+        ];
+
+        // default dropdown structure
+        const menu = document.getElementById("monster-list");
+        menu.innerHTML = "<option value='-'>-</option>";
+
+        // populate monsters
+        monsters.forEach(m => {
+            const opt = document.createElement("option");
+            opt.value = m.id;
+            opt.textContent = m.name;
+            menu.appendChild(opt);
+        });
+
+        // event: when user selects a monster
+        menu.onchange = () => {
+            let id = menu.value;
+
+            if (id === "-") {
+                clearFields();
+                return;
+            }
+
+            let mon = monsters.find(x => x.id == id);
+
+            document.getElementById("td-monster-id").innerText = mon.id;
+            document.getElementById("td-monster-name").innerText = mon.name;
+            document.getElementById("td-monster-hp").innerText = mon.hp;
+            document.getElementById("td-monster-exp").innerText = mon.exp;
+        };
+
+        function clearFields() {
+            document.getElementById("td-monster-id").innerText = "";
+            document.getElementById("td-monster-name").innerText = "";
+            document.getElementById("td-monster-hp").innerText = "";
+            document.getElementById("td-monster-exp").innerText = "";
+        }
+    </script>
+
+</body>
+</html>
